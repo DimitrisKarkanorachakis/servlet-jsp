@@ -41,7 +41,7 @@ public class UserRegisterController extends HttpServlet {
         String username = request.getParameter("username").trim();
         String password = request.getParameter("password").trim();
         String confirmPassword = request.getParameter("confirmPassword").trim();
-        String role = request.getParameter("role").trim();
+        String role = request.getParameter("role");
 
         String errorMessage = "";
         Map<String, String> errors;

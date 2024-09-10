@@ -15,7 +15,7 @@ public class UserDAOImpl implements IUserDAO {
 
     @Override
     public User insert(User user) throws UserDAOException {
-        String sql = "INSERT INTO users (username, password) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
 
         try (Connection connection = DBUtil.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -79,10 +79,11 @@ public class UserDAOImpl implements IUserDAO {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                user = new User(rs.getInt("id"),
+                user = new User(
+                        rs.getInt("id"),
                         rs.getString("username"),
                         rs.getString("password"),
-                        RoleType.valueOf(rs.getString("role")));  // we assume that DB role is not null
+                        RoleType.valueOf(rs.getString("role")));        // we assume that DB role is not null
             } else {
                 return false;
             }
